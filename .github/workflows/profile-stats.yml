@@ -1,0 +1,54 @@
+# Números do perfil da org (profile/README.md), atualizados toda semana a partir do site.
+# Fonte: https://nextoolsolutions.com/api/public/stats (os mesmos agregados do ticker da home;
+# contrato em docs/site/APIs.md do NexTools-Solutions/nextool-ecosystem, issue #72).
+#
+# Falha (e o GitHub manda o e-mail de falha) se o endpoint não responder, se faltar número ou se o
+# snapshot tiver mais de 8 dias: a Action também vigia o cron do portal que alimenta a home. O commit
+# só sai quando algo muda; como a data do snapshot entra no texto, sai um por semana, o que mantém o
+# agendamento vivo (o GitHub desliga cron de repo público após 60 dias sem atividade).
+name: Atualizar números do perfil
+
+on:
+  schedule:
+    # Segunda-feira 10:23 UTC (07:23 BRT), depois do snapshot diário das 05:00 BRT.
+    - cron: "23 10 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: profile-stats
+  cancel-in-progress: false
+
+jobs:
+  atualizar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Testes do gerador
+        run: python3 -I -m unittest discover -s .github/scripts -p 'test_*.py' -v
+
+      - name: Buscar os números e reescrever o README
+        id: stats
+        run: python3 -I .github/scripts/profile_stats.py profile/README.md
+
+      - name: Commit e push (só se mudou)
+        env:
+          SNAPSHOT_DATE: ${{ steps.stats.outputs.snapshot_date }}
+        run: |
+          if git diff --quiet -- profile/README.md; then
+            echo "Nada mudou no README."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add profile/README.md
+          git commit -m "chore(profile): numeros de ${SNAPSHOT_DATE}"
+          git push origin HEAD:main
+
+      # Por último: link quebrado (ou site de terceiro instável) falha o job, mas os números já saíram.
+      - name: Conferir os links do README
+        run: python3 -I .github/scripts/check_links.py profile/README.md
