@@ -4,11 +4,11 @@ Plugins, automação e integrações para o GLPI 10, 11 e 12. O [NexTool](https:
 
 <!-- nx-stats:pt:start -->
 
-| **786** | **56** | **6.588** | **40** |
+| **788** | **56** | **6.646** | **40** |
 |:---:|:---:|:---:|:---:|
 | ambientes GLPI que já instalaram o NexTool | países | downloads de módulos | módulos no catálogo |
 
-<sub>Atualizado automaticamente toda semana a partir de [nextoolsolutions.com](https://nextoolsolutions.com) (dados de 31/10/2026). Ambientes conta as instalações já feitas, não só as ativas.</sub>
+<sub>Atualizado automaticamente toda semana a partir de [nextoolsolutions.com](https://nextoolsolutions.com) (dados de 02/11/2026). Ambientes conta as instalações já feitas, não só as ativas.</sub>
 
 <!-- nx-stats:pt:end -->
 
@@ -56,11 +56,11 @@ NexTool Solutions builds plugins, automation and integrations for GLPI 10, 11 an
 
 <!-- nx-stats:en:start -->
 
-| **786** | **56** | **6,588** | **40** |
+| **788** | **56** | **6,646** | **40** |
 |:---:|:---:|:---:|:---:|
 | GLPI environments that have installed NexTool | countries | module downloads | modules in the catalog |
 
-<sub>Updated automatically every week from [nextoolsolutions.com](https://nextoolsolutions.com) (data as of Oct 31, 2026). Environments counts every installation so far, not only active ones.</sub>
+<sub>Updated automatically every week from [nextoolsolutions.com](https://nextoolsolutions.com) (data as of Nov 2, 2026). Environments counts every installation so far, not only active ones.</sub>
 
 <!-- nx-stats:en:end -->
 
